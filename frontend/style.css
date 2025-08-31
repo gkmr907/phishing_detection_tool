@@ -94,6 +94,10 @@ p {
     padding: 1rem;
     border-radius: 8px;
     transition: all 0.5s ease;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .result-verdict.safe {
@@ -114,15 +118,76 @@ p {
     color: var(--malicious-color);
 }
 
-.result-verdict h3 {
+.result-verdict-info {
+    flex-grow: 1;
+}
+
+.result-verdict-info h3 {
     margin: 0 0 0.5rem 0;
     font-weight: 600;
 }
 
-.result-verdict p {
+.result-verdict-info p {
     margin: 0;
     font-size: 0.9rem;
     color: inherit;
+}
+
+.info-icon-container {
+    position: relative;
+    cursor: pointer;
+}
+
+.info-icon {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.1rem;
+    width: 2rem;
+    height: 2rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.info-icon:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.info-tooltip {
+    visibility: hidden;
+    width: 250px;
+    background-color: var(--card-background);
+    color: var(--text-color);
+    text-align: left;
+    border-radius: 6px;
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.info-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--card-background) transparent transparent transparent;
+}
+
+.info-icon-container:hover .info-tooltip {
+    visibility: visible;
+    opacity: 1;
 }
 
 .reasons-header {
@@ -141,26 +206,4 @@ p {
     margin-bottom: 0.5rem;
     color: var(--sub-text-color);
     font-size: 0.9rem;
-}
-
-/* Loading animation */
-.loading {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-}
-
-.spinner {
-    border: 4px solid var(--border-color);
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border-left-color: var(--primary-color);
-    animation: spin 1s ease infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
 }
