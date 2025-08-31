@@ -24,7 +24,7 @@ def get_dataset():
 def extract_features(url):
     """
     Extracts a list of features from a single URL for the model.
-    This is the core of our feature engineering.
+    (Updated with new features for better accuracy)
     """
     features = []
     
@@ -55,37 +55,50 @@ def extract_features(url):
     contains_keyword = any(keyword in url.lower() for keyword in keywords)
     features.append(1 if contains_keyword else 0)
     
+    # --- New features to help identify legitimate URLs ---
+    # 9. Presence of 'www.'
+    features.append(1 if 'www.' in url.lower() else 0)
+    
+    # 10. Presence of '.com'
+    features.append(1 if '.com' in url.lower() else 0)
+    
+    # 11. Number of subdomains (e.g., mail.google.com has 2)
+    features.append(url.count('.') - 1)
+    
     return np.array(features).reshape(1, -1)
-
 def get_reasons_from_features(url):
     """
     Analyzes a URL and returns a list of human-readable reasons for a verdict.
+    (Updated to provide both malicious and safe reasons)
     """
     reasons = []
     
-    if len(url) > 75:  # A common heuristic for phishing URLs
+    # Malicious reasons (same as before)
+    if len(url) > 75:
         reasons.append("URL is unusually long, which can be a sign of a malicious link.")
-    
     if url.count('.') > 3:
         reasons.append("URL contains multiple dots, often used to obscure the real domain.")
-        
     if bool(re.match(r'\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b', url)):
         reasons.append("URL contains an IP address instead of a domain name.")
-        
     if '@' in url:
         reasons.append("The '@' symbol is present, which is often used to insert fake credentials.")
-        
-    if not url.startswith('https://'):
-        reasons.append("The URL does not use a secure HTTPS connection.")
-        
-    keywords = ['secure', 'account', 'login', 'verify', 'paypal', 'banking', 'update', 'signin']
-    if any(keyword in url.lower() for keyword in keywords):
+    if any(keyword in url.lower() for keyword in ['secure', 'account', 'login', 'verify', 'paypal', 'banking', 'update', 'signin']):
         reasons.append("URL contains suspicious keywords (e.g., login, secure, verify).")
-        
+    
+    # Safe reasons (new)
+    if not reasons:
+        if url.startswith('https://'):
+            reasons.append("The URL uses a secure HTTPS connection.")
+        if 'www.' in url.lower():
+            reasons.append("The URL uses a standard 'www.' prefix.")
+        if url.count('.') <= 2:
+            reasons.append("The URL has a standard number of dots.")
+    
     if not reasons:
         reasons.append("No obvious suspicious signs found.")
         
     return reasons
+
 
 def train_and_save_model():
     """
