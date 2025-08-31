@@ -1,7 +1,5 @@
 Flask
-scikit-learn
 pandas
-numpy
-
-joblib
-flask-cors
+python-whois
+tldextract
+requests
