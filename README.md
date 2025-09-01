@@ -1,7 +1,7 @@
 # 🔎 Phishing Detection Tool
 ### _"Your intelligent scanner for a safer web."_
 
-A lightweight web-based tool to analyze suspicious URLs and classify them as **Safe, Suspicious, or Malicious**[cite: 101].
+A lightweight web-based tool to analyze suspicious URLs and classify them as **Safe, Suspicious, or Malicious**
 Built with a focus on **cybersecurity awareness, simplicity, and practical use cases**.
 
 
