@@ -7,16 +7,20 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <h1>Phishing Detection Tool</h1>
-        <p>Enter a URL to check if it's safe.</p>
+        <p>Your intelligent scanner for a safer web.</p>
         <form id="scanForm">
-            <div class="input-container">
+            <div class="input-group">
                 <input type="text" id="urlInput" placeholder="Enter URL here...">
-                <button type="submit" id="scanButton">Scan</button>
+                <button type="submit" id="scanButton">
+                    <svg id="scanIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <span id="scanText">Scan</span>
+                </button>
             </div>
         </form>
         <div id="resultContainer" class="result-container">
